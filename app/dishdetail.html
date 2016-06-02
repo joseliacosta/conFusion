@@ -22,8 +22,8 @@
   </head>
   <body>
     <div class="container">
-      <div class="row row-content">
-        <div class="col-xs-12" ng-controller="dishDetailController as dishDetailCtrl">
+      <div class="row row-content" ng-controller="dishDetailController as dishDetailCtrl">
+        <div class="col-xs-12" >
           <div class="media-left media-middle">
             <a href="#">
               <img src="" alt="" class="media-object img-thumbnail" ng-src={{dishDetailCtrl.dish.image}} alt="Uthappizza">
@@ -34,10 +34,24 @@
             <span class="label label-danger">{{dishDetailCtrl.dish.label}}</span>
             <span class="badge">{{dishDetailCtrl.dish.price}}</span></h2>
             <p>{{dishDetailCtrl.dish.description}}</p>
+            
           </div>
         </div>
         <div class="col-xs-9 col-xs-offset-1">
-          <p>Put the comments here</p>
+          <p>Customer Comments</p>
+          <div class="form">
+            <label for="">Sorted by</label>
+            <input type="text">
+          </div>
+          <ul >
+            <li ng-repeat="rating in dishDetailCtrl.dish.comments | filter: dishDetailController.dishName">
+              <p>{{rating.rating}}</p>
+              <p>{{rating.comment}}</p>
+              <p>{{rating.author}}</p>
+              <p>{{rating.date}}</p>
+            
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -46,6 +60,7 @@
     var app = angular.module('confusionApp',[]);
     
     app.controller('dishDetailController', function() {
+    var dishName = 'Uthapizza';
     var dish={
     name:'Uthapizza',
     image: 'images/uthapizza.png',
